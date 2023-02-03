@@ -1,0 +1,95 @@
+body {
+    background-color: bisque;
+}
+p {
+    text-align: center;
+}
+.offcanvas {
+    --bs-offcanvas-width: 500px;
+}
+.offcanvas-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.titulo {
+    margin-left: 20px;
+}
+.bg-nav {
+    background-color: whitesmoke;
+
+}
+.navbar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    justify-content: space-between;
+}
+.nav {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+.nav-link {
+    text-decoration: none;
+    padding: 20px;
+    cursor: pointer;
+}
+.carrito{
+    position: fixed;
+    right: 0;
+    bottom: 16%;
+    z-index: 100;
+}
+.text {
+    color: white;
+}
+.fondo {
+    width: 100%;
+    height: 400px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(/img/fondo.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-bottom: 40px;
+}
+.cards {
+    background-color: whitesmoke;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background: lightgray;
+    border: 1px solid #000000;
+    border-radius: 10px;
+}
+.footer {
+    background-color: black;
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+    height: 100px;
+}
+.contenido-carro{
+    width: 200px;
+    background-color: rgba(222, 243, 34, 0.815);
+}
+.contenido-total{
+    display: flex;
+    justify-content: end;
+    margin-right: 15px;
+    margin: 2px;
+}
+.contenido-total p {
+    padding: 0;
+    margin: 0;
+}
