@@ -1,16 +1,3 @@
-// Arreglo de productos
-let catalogo = [
-    {imagen: 'https://picsum.photos/id/21/300/200', nombre: 'Producto 1', codigo: 1, descripcion: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.', precio: 100000, cantidad: 1},
-    {imagen: 'https://picsum.photos/id/23/300/200', nombre: 'Producto 2', codigo: 2, descripcion: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.', precio: 55000, cantidad: 1},
-    {imagen: 'https://picsum.photos/id/24/300/200', nombre: 'Producto 3', codigo: 3, descripcion: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.', precio: 68000, cantidad: 1},
-    {imagen: 'https://picsum.photos/id/30/300/200', nombre: 'Producto 4', codigo: 4, descripcion: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.', precio: 52000, cantidad: 1},
-    {imagen: 'https://picsum.photos/id/36/300/200', nombre: 'Producto 5', codigo: 5, descripcion: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.', precio: 30000, cantidad: 1},
-    {imagen: 'https://picsum.photos/id/96/300/200', nombre: 'Producto 6', codigo: 6, descripcion: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.', precio: 43000, cantidad: 1},
-    {imagen: 'https://picsum.photos/id/104/300/200', nombre: 'Producto 7', codigo: 7, descripcion: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.', precio: 10000, cantidad: 1},
-    {imagen: 'https://picsum.photos/id/111/300/200', nombre: 'Producto 8', codigo: 8, descripcion: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.', precio: 76000, cantidad: 1},
-    {imagen: 'https://picsum.photos/id/146/300/200', nombre: 'Producto 9', codigo: 9, descripcion: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.', precio: 58000, cantidad: 1},
-    {imagen: 'https://picsum.photos/id/250/300/200', nombre: 'Producto 10', codigo: 10, descripcion: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.', precio: 25000, cantidad: 1}
-]
 
 // Variables y eventos
 const cards = document.querySelector('.cards') 
@@ -25,7 +12,7 @@ const precioEnvio = document.querySelector('#precioEnvio')
 const totalTotal = document.querySelector('#totalTotal')
 const contenedorTotales = document.querySelector('#contenedor-totales')
 const botones = document.querySelector('.botones')
-let carrito = []
+let carrito = new Carro;
 let totales = []
 
 window.addEventListener('DOMContentLoaded', mostrarProductos)
@@ -36,16 +23,17 @@ window.addEventListener('DOMContentLoaded', consultarData)
  */
 function mostrarProductos() {
     catalogo.forEach(producto => { 
+        let nuevoProducto = new Producto(producto.imagen,producto.nombre,producto.codigo,producto.descripcion,producto.precio,producto.stock)
         const card = document.createElement('div')
         card.classList.add('card', 'p-2')
         card.innerHTML = 
         `
-        <img class="w-100 mb-2" src="${producto.imagen}">
-        <p>${producto.nombre}</p>
-        <p>Código: ${producto.codigo}</p>
-        <p>Descripción: ${producto.descripcion}.</p>
-        <p>Precio: $${producto.precio}</p>
-        <button onclick="crearObj(${producto.codigo})" class="boton">Agregar al carrito</button>
+        <img class="w-100 mb-2" src="${nuevoProducto.imagen}">
+        <p>${nuevoProducto.nombre}</p>
+        <p>Código: ${nuevoProducto.codigo}</p>
+        <p>Descripción: ${nuevoProducto.descripcion}.</p>
+        <p>Stock: ${nuevoProducto.stock}</p>
+        <button onclick="crearObj(${nuevoProducto.codigo})" class="boton">Agregar al carrito</button>
         `
         cards.appendChild(card)
     })
@@ -64,8 +52,8 @@ function crearObj(id){
         precio: producto.precio,
         id: producto.codigo
     }
-    if(carrito.some(producto => producto.id === productoCarrito.id)) {
-        const productos = carrito.map(producto => {
+    if(carrito.productos.some(producto => producto.id === productoCarrito.id)) {
+        const productos = carrito.productos.map(producto => {
             if(producto.id === productoCarrito.id) {
                 producto.cantidad++
                 producto.precio = calcularPrecio(producto.cantidad, producto.id)
@@ -74,9 +62,9 @@ function crearObj(id){
                 return producto
             }
         })
-        carrito = productos
+        carrito.productos = productos
     } else {
-        carrito = [...carrito, productoCarrito]
+        carrito.productos = [...carrito.productos, productoCarrito]
     }
     calcularTotales()
     mostrarCarrito()
@@ -86,7 +74,7 @@ function crearObj(id){
  */
 function mostrarCarrito(){
     eliminarInfoPrevia()
-    carrito.forEach(producto => {
+    carrito.productos.forEach(producto => {
         const productoTabla = document.createElement('tr')
         productoTabla.innerHTML =
         `
@@ -116,7 +104,7 @@ function eliminarInfoPrevia() {
  * Elimina contenidos del carrito, los valores totales y localstorage al momento de presionar el botón de vaciar
  */
 function borrarCarrito() {
-    carrito = []
+    carrito.productos = []
     totales = []
     totalNeto.textContent = '$0'
     totalIva.textContent = '$0'
@@ -145,7 +133,7 @@ function calcularPrecio(cantidad, id) {
  * @param {Number} id: Código del producto
  */
 function eliminarProducto(id) {
-    carrito = carrito.filter(producto => id !== producto.id)
+    carrito = carrito.productos.filter(producto => id !== producto.id)
     mostrarCarrito()
     if(carrito.length !== 0) {
         calcularTotales()
@@ -158,7 +146,7 @@ function eliminarProducto(id) {
  * Calcula los precios totales según contenido del carrito (total neto, el IVA incluido, el total + IVA, precio de envio y el total a pagar)
 */
 function calcularTotales() {
-    const preciosCarrito = carrito.map(producto => producto.precio)
+    const preciosCarrito = carrito.productos.map(producto => producto.precio)
     let totalCarrito = preciosCarrito.reduce((total, actual) => total + actual)
 
     totalNeto.textContent = '$' + (totalCarrito - (totalCarrito * 0.19))
