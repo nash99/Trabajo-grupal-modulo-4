@@ -112,7 +112,6 @@ function eliminarInfoPrevia() {
         contenidoTabla.removeChild(contenidoTabla.firstChild)
     }
 }
-
 /**
  * Elimina contenidos del carrito, los valores totales y localstorage al momento de presionar el botón de vaciar
  */
