@@ -103,7 +103,6 @@ function mostrarCarrito(){
         contenidoTabla.appendChild(productoTabla)
     })
 }
-
 /**
  * Mientras exista un elemento en el contenedor padre, se remueve y se imprime el siguiente
  */
