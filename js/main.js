@@ -47,4 +47,26 @@ $(document).on('click','button[type="button"]', function() {
     let id = parseInt(this.id[this.id.length - 1]) ;
     let producto = catalogo.find(producto => producto.codigo == id)
     carrito.añadirProducto(producto)
-  });
+    mostrarCarrito()
+});
+
+//Mostrar productos en carro
+function mostrarCarrito(){
+    carrito.productos.forEach(producto => {
+        const productoTabla = document.createElement('tr')
+        productoTabla.innerHTML =
+        `
+        <td>
+            <img src=${producto.imagen} width="100px">
+        </td>
+        <td>${producto.nombre}</td>
+        <td>${producto.cantidad}</td>
+        <td>$${producto.precio}</td>
+        <td>
+            <button onclick="eliminarProducto(${producto.id})">X</button>
+        </td>
+        `
+        contenidoTabla.appendChild(productoTabla)
+    })
+}
+
