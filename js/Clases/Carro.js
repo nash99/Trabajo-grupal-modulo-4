@@ -1,65 +1,59 @@
 
-function Carro(){
-    this.productos = [];
-    this.neto = 0;
-    this.bruto = 0;
-    this.descuento = 0;
-    this.total = 0;
-    this.iva = 0;
+class Carro{
+
+    productos = [];
+    neto;
+    bruto;
+    descuento;
+    total;
+    iva; 
+
+    
 
     //Getters
-    this.getProductos = () => {return this.productos};
-    this.getNeto = () => {return this.neto};
-    this.getBruto = () => {return this.bruto};
-    this.getDescuento = () => {return this.descuento};
-    this.getTotal = () => {return this.total};
-    this.getIva = () => {return this.iva}
+    get productos(){return this.productos};
+    get neto(){return this.neto};
+    get bruto(){return this.bruto};
+    get descuento(){return this.descuento};
+    get total(){return this.total};
+    get iva(){return this.iva}
 
     //Setters
-    this.setNeto = () => {
-        if (this.productos.length == 0) {
-            this.neto = 0
-        } else {
-            this.productos.forEach(producto => {
-                this.neto += producto.precio
-            });
-        }
-    };
 
-    this.setBruto = () => {
-        if (this.productos.length == 0) {
-            this.bruto = 0
-        } else {
-            this.bruto = Math.round(this.neto * 1.19)
-        }
-        
-    };
-
-    this.setDescuento = () => {
-        if (this.productos.length == 0) {
-            this.descuento = 0
-        } else {
-            if(this.total > 100000){
-                this.descuento = Math.round(this.total - this.total * 0.05)
+    set producto(_producto){this.producto = _producto};
+    set neto(_neto){this.neto = _neto};
+    set bruto(_bruto){this.bruto = _bruto};
+    set descuento(_descuento){this.descuento = _descuento};
+    set total(_total){this.total = _total};
+    set iva(_iva){ this.iva = _iva}
+    
+    //Custom
+    calcularTotales = () =>{
+        this.productos.forEach(element => {
+            this.neto += element.precio;
+            this.iva = Math.round(this.neto * 0.19)
+            this.bruto = this.neto - this.iva;
+            if(this.neto > 100000){
+                this.descuento = Math.round(this.neto * 0.05)
             }else{
                 this.descuento = 0
             }
-        }
-    };
-
-    this.setIva = () => {
-        if (this.productos.length == 0) {
-            this.iva = 0
-        } else {
-            this.iva = Math.round(this.total * 0.19)
-        }
+            this.total = this.neto - this.descuento
+        });
     }
 
-    this.calcularTotales = () =>{
-        this.total = this.bruto - this.descuento
+    añadirProducto = (producto) =>{
+        this.productos.push(producto)
     }
 
-    
+    eliminarCarro = () =>{
+        this.productos = [];
+        this.total = 0;
+        this.iva = 0;
+        this.neto = 0;
+        this.descuento = 0;
+        this.bruto = 0;
+    }
    
 
 }

@@ -12,8 +12,8 @@ const precioEnvio = document.querySelector('#precioEnvio')
 const totalTotal = document.querySelector('#totalTotal')
 const contenedorTotales = document.querySelector('#contenedor-totales')
 const botones = document.querySelector('.botones')
-let carrito = new Carro;
-let totales = []
+let carrito = new Carro();
+
 
 window.addEventListener('DOMContentLoaded', mostrarProductos)
 window.addEventListener('DOMContentLoaded', consultarData)
@@ -45,16 +45,13 @@ function mostrarProductos() {
  */
 function crearObj(id){
     const producto = catalogo.filter(producto => id === producto.codigo)[0] 
-    productoCarrito = {
-        imagen: producto.imagen,
-        nombre: producto.nombre,
-        cantidad: producto.cantidad,
-        precio: producto.precio,
-        id: producto.codigo
-    }
-    if(carrito.productos.some(producto => producto.id === productoCarrito.id)) {
+    productoCarrito = new Producto(producto.imagen,producto.nombre,producto.codigo,producto.descripcion,producto.precio,producto.stock,producto.cantidad)
+    
+    
+    
+    if(carrito.productos.some(producto => producto.codigo === productoCarrito.codigo)) {
         const productos = carrito.productos.map(producto => {
-            if(producto.id === productoCarrito.id) {
+            if(producto.codigo === productoCarrito.codigo) {
                 producto.cantidad++
                 producto.precio = calcularPrecio(producto.cantidad, producto.id)
                 return producto
@@ -104,8 +101,8 @@ function eliminarInfoPrevia() {
  * Elimina contenidos del carrito, los valores totales y localstorage al momento de presionar el botón de vaciar
  */
 function borrarCarrito() {
-    carrito.productos = []
-    totales = []
+    carrito.eliminarCarro();
+    carrito.total = 0
     totalNeto.textContent = '$0'
     totalIva.textContent = '$0'
     netoIva.textContent = '$0'
@@ -123,8 +120,8 @@ function borrarCarrito() {
  * @param {Number} id: Identificador para extraer el precio del arreglo original
  * @returns El resultado de la cantidad del producto del carrito por el precio original
  */
-function calcularPrecio(cantidad, id) {
-    const producto = catalogo.filter(producto => id === producto.codigo)[0]
+function calcularPrecio(cantidad, codigo) {
+    const producto = catalogo.filter(producto => codigo === producto.codigo)[0]
     return cantidad * producto.precio
 }
 
