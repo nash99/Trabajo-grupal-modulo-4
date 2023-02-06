@@ -45,6 +45,10 @@ p {
     bottom: 16%;
     z-index: 100;
 }
+
+div#carrito{
+    width: 45%;
+}
 .text {
     color: white;
 }
@@ -72,6 +76,26 @@ p {
     border: 1px solid #000000;
     border-radius: 10px;
 }
+
+div.d-flex.row.justify-content-center {
+    display: flex;
+    flex-direction: column !important;
+    justify-content: center;
+}
+
+.boton {
+    border: solid 1px gray;
+    border-radius: 10%;
+    margin: 20px 0px;
+    padding: 0.8vw 0.6vw;
+}
+button.btnAgregar {
+    padding: 0.5vw;
+    border: solid 1px gray;
+    border-radius: 10%;
+    margin: 0vw 1vw;
+}
+
 .footer {
     background-color: black;
     display: flex;
