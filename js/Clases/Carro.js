@@ -52,7 +52,6 @@ class Carro{
             prod.cantidad += 1;
             prod.precio *= prod.cantidad;
             carrito.productos.indexOf(prod)
-            console.log(prod)
         }else{
             productoNuevo.cantidad += 1
             this.productos.push(productoNuevo)

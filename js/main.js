@@ -49,6 +49,7 @@ function mostrarProductos() {
 
 //Agregar al carro
 $(document).on('click','button[type="button"]', function() {
+  
     let id = parseInt(this.id.replace(/[^0-9]+/g, "")) ;
     let producto = catalogo.find(producto => producto.codigo == id)
     carrito.añadirProducto(producto)
@@ -58,21 +59,23 @@ $(document).on('click','button[type="button"]', function() {
 //Mostrar productos en carro
 function mostrarCarrito(){
     eliminarInfoPrevia();
+    let i=0;
     carrito.productos.forEach(producto => {
         const productoTabla = document.createElement('tr')
         productoTabla.innerHTML =
         `
         <td>
-            <img src=${producto.imagen} width="100px">
+            <img  src=${producto.imagen} width="100px">
         </td>
-        <td>${producto.nombre}</td>
+        <td id="${producto.codigo}">${producto.nombre}</td>
         <td>${producto.cantidad}</td>
         <td>$${producto.precio}</td>
-        <td>
-            <button id"eliminacionItem">X</button>
+        <td id="botonEliminar">
+            <button type="button" class=" btn bg-danger">X</button>
         </td>
         `
         contenidoTabla.appendChild(productoTabla)
+        i++
     })
     carrito.calcularTotales()
     
@@ -101,6 +104,8 @@ $("#vaciar-carrito").on("click" ,function(){
 })
 
 //Boton eliminar item
-$("#eliminacionItem").on("click",function(){
-    
+$("#botonEliminar").on("click", function(){
+    alert("aasffd")
 })
+
+
