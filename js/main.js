@@ -29,21 +29,50 @@ window.addEventListener('DOMContentLoaded', mostrarProductos)
 function mostrarProductos() {
     let i = 1
     catalogo.forEach(producto => { 
+        if(producto.stock > 0){
+            const card = document.createElement('div')
+            card.classList.add('card', 'p-2')
+            card.innerHTML = 
+            `
+            <img id="img-${i}" class="w-100 mb-2 img" src="${producto.imagen}">
+            <p id="nombre-${i}">${producto.nombre}</p>
+            <p id="codigo-${i}">Código: ${producto.codigo}</p>
+            <p id="descripcion-${i}">Descripción: ${producto.descripcion}.</p>
+            <p id="precio-${i}">Precio:$${producto.precio}</p>
+            
+            <button id="boton-${producto.codigo}" type="button" class="btn bg-primary agregarProducto">Agregar al carrito</button>
+            `
+            if(producto.stock > 1 && producto.stock < 4){
+                card.append(`Unidades Disponibles: ${producto.stock}`)
+            }else if(producto.stock == 1){
+                card.append(`Ultima unidad disponible!`)
+            }
+            
+            i++
+            cards.appendChild(card)
+        }else{
+            const card = document.createElement('div')
+            card.classList.add('card', 'p-2')
+            card.innerHTML = 
+            `
+            <img id="img-${i}" class="w-100 mb-2 img" src="${producto.imagen}">
+            <p id="nombre-${i}">${producto.nombre}</p>
+            <p id="codigo-${i}">Código: ${producto.codigo}</p>
+            <p id="descripcion-${i}">Descripción: ${producto.descripcion}.</p>
+            <p id="precio-${i}">Precio:$${producto.precio}</p>
+            <p >Producto Agotado</p>
+            <button id="boton-${producto.codigo}" type="button" class="btn bg-primary agregarProducto disabled">Agregar al carrito</button>
+            `
+            if(producto.stock > 1 && producto.stock < 4){
+                card.append(`Unidades Disponibles: ${producto.stock}`)
+            }else if(producto.stock == 1){
+                card.append(`Ultima unidad disponible!`)
+            }
+            
+            i++
+            cards.appendChild(card)
+        }
         
-        const card = document.createElement('div')
-        card.classList.add('card', 'p-2')
-        card.innerHTML = 
-        `
-        <img id="img-${i}" class="w-100 mb-2 img" src="${producto.imagen}">
-        <p id="nombre-${i}">${producto.nombre}</p>
-        <p id="codigo-${i}">Código: ${producto.codigo}</p>
-        <p id="descripcion-${i}">Descripción: ${producto.descripcion}.</p>
-        <p id="precio-${i}">Precio:$${producto.precio}</p>
-        <p id="stock-${i}">Stock: ${producto.stock}</p>
-        <button id="boton-${producto.codigo}" type="button" class="btn bg-primary agregarProducto">Agregar al carrito</button>
-        `
-        i++
-        cards.appendChild(card)
     })
 }
 
@@ -108,4 +137,9 @@ function eliminarInfoPrevia() {
 $("#vaciar-carrito").on("click" ,function(){
     carrito.eliminarCarro();
     eliminarInfoPrevia()
+})
+
+//Input range
+$("#rango").on("change",function(){
+    $("#divRango").text(`$0 hasta $${$("#rango").val()}`)
 })
