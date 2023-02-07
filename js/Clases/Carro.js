@@ -70,6 +70,10 @@ class Carro{
         this.bruto = 0;
     }
 
+    eliminarItem = (prod) =>{
+        let producto = catalogo.find(producto => producto.codigo == id)
+        console.log(this.productos.indexOf(producto))
+    }
     
    
 

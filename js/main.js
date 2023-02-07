@@ -99,3 +99,8 @@ $("#vaciar-carrito").on("click" ,function(){
     carrito.eliminarCarro();
     eliminarInfoPrevia()
 })
+
+//Boton eliminar item
+$("#eliminacionItem").on("click",function(){
+    
+})
