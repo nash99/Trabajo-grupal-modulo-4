@@ -93,3 +93,14 @@ p {
     padding: 0;
     margin: 0;
 }
+
+.botonEliminar{
+    background-color: rgb(199, 11, 11);
+    width: 100%;
+    height: 100%;
+}
+
+#tdBtnEliminar{
+    width: 100%;
+    z-index: 1001;
+}

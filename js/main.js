@@ -27,20 +27,20 @@ window.addEventListener('DOMContentLoaded', mostrarProductos)
  * Muestra en el DOM todos los productos del arreglo
  */
 function mostrarProductos() {
-    i = 1
+    let i = 1
     catalogo.forEach(producto => { 
         
         const card = document.createElement('div')
         card.classList.add('card', 'p-2')
         card.innerHTML = 
         `
-        <img id="img-${i}" class="w-100 mb-2" src="${producto.imagen}">
+        <img id="img-${i}" class="w-100 mb-2 img" src="${producto.imagen}">
         <p id="nombre-${i}">${producto.nombre}</p>
         <p id="codigo-${i}">Código: ${producto.codigo}</p>
         <p id="descripcion-${i}">Descripción: ${producto.descripcion}.</p>
         <p id="precio-${i}">Precio:$${producto.precio}</p>
         <p id="stock-${i}">Stock: ${producto.stock}</p>
-        <button id="boton-${i}" type="button" class="btn bg-primary agregarProducto">Agregar al carrito</button>
+        <button id="boton-${producto.codigo}" type="button" class="btn bg-primary agregarProducto">Agregar al carrito</button>
         `
         i++
         cards.appendChild(card)
@@ -48,10 +48,11 @@ function mostrarProductos() {
 }
 
 //Agregar al carro
-$(document).on('click','button[type="button"]', function() {
-  
+$(document).on('click','button[type="button"]', function(){
     let id = parseInt(this.id.replace(/[^0-9]+/g, "")) ;
-    let producto = catalogo.find(producto => producto.codigo == id)
+    
+    let producto = catalogo.find(productoo => productoo.codigo == id)
+    console.log(producto)
     carrito.añadirProducto(producto)
     mostrarCarrito()
 });
@@ -59,7 +60,6 @@ $(document).on('click','button[type="button"]', function() {
 //Mostrar productos en carro
 function mostrarCarrito(){
     eliminarInfoPrevia();
-    let i=0;
     carrito.productos.forEach(producto => {
         const productoTabla = document.createElement('tr')
         productoTabla.innerHTML =
@@ -70,12 +70,12 @@ function mostrarCarrito(){
         <td id="${producto.codigo}">${producto.nombre}</td>
         <td>${producto.cantidad}</td>
         <td>$${producto.precio}</td>
-        <td id="botonEliminar">
-            <button type="button" class=" btn bg-danger">X</button>
+        <td>
+            <button id="tdBtnEliminar" class="btn bg-danger">X</button>
         </td>
         `
         contenidoTabla.appendChild(productoTabla)
-        i++
+        
     })
     carrito.calcularTotales()
     
@@ -104,8 +104,6 @@ $("#vaciar-carrito").on("click" ,function(){
 })
 
 //Boton eliminar item
-$("#botonEliminar").on("click", function(){
-    alert("aasffd")
+$("#tdBtnEliminar").on('click', function(){
+    alert("asdasd")
 })
-
-
