@@ -47,14 +47,21 @@ function mostrarProductos() {
     })
 }
 
-//Agregar al carro
-$(document).on('click','button[type="button"]', function(){
-    let id = parseInt(this.id.replace(/[^0-9]+/g, "")) ;
+//Agregar al carro y Borrar un producto del carro
+$(document).on('click','button[type="button"]', function(){ //Detecta los clicks en los elementos tipo Button
+    if(this.classList.contains("agregarProducto")){ //Este if evalua si el boton contiene la clase "agregarProducto", así se diferencia de otros botones en la página
+        let id = parseInt(this.id.replace(/[^0-9]+/g, "")); //Obtiene el id del boton clickeado
+        let producto = catalogo.find(productoo => productoo.codigo == id) //Busca el producto por el id(Declarado antes como el codigo del producto)
+        carrito.añadirProducto(producto) 
+        mostrarCarrito()
+    }else{
+        let  id =  this.id; //Obtiene el id del boton clickeado
+        let producto = catalogo.find(productoo => productoo.codigo == id); //Busca el producto en el arreglo catalogo
+        let index = carrito.productos.indexOf(producto); //Obtiene el indice del producto en el carro
+        carrito.productos.splice(index,1); //Elimina el producto del carro
+        mostrarCarrito();
+    }
     
-    let producto = catalogo.find(productoo => productoo.codigo == id)
-    console.log(producto)
-    carrito.añadirProducto(producto)
-    mostrarCarrito()
 });
 
 //Mostrar productos en carro
@@ -71,7 +78,7 @@ function mostrarCarrito(){
         <td>${producto.cantidad}</td>
         <td>$${producto.precio}</td>
         <td>
-            <button id="tdBtnEliminar" class="btn bg-danger">X</button>
+            <button id="${producto.codigo}" type="button" class="btn bg-danger botonEliminar">X</button>
         </td>
         `
         contenidoTabla.appendChild(productoTabla)
@@ -101,9 +108,4 @@ function eliminarInfoPrevia() {
 $("#vaciar-carrito").on("click" ,function(){
     carrito.eliminarCarro();
     eliminarInfoPrevia()
-})
-
-//Boton eliminar item
-$("#tdBtnEliminar").on('click', function(){
-    alert("asdasd")
 })
