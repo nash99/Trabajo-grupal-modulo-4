@@ -6,8 +6,6 @@ class Producto{
     precio;
     cantidad;
     stock;
-  
-    
 
     //Getters
     get imagen(){return this.imagen};
@@ -26,8 +24,6 @@ class Producto{
     set precio(precio){this.precio = precio};
     set cantidad(cantidad){this.cantidad = cantidad};
     set stock(stock){this.stock = stock};
-
-   
 
     constructor(imagen,nombre,codigo,descripcion,precio,stock,cantidad){
         this.imagen = imagen;

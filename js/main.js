@@ -13,7 +13,12 @@ const totalTotal = document.querySelector('#totalTotal')
 const contenedorTotales = document.querySelector('#contenedor-totales')
 const botones = document.querySelector('.botones')
 let carrito = new Carro();
-
+//Formateo de numero a moneda
+const formatoPeso = new Intl.NumberFormat('es-CL', {
+    style: 'currency',
+    currency: 'CLP',
+    minimumFractionDigits: 0
+  })
 
 window.addEventListener('DOMContentLoaded', mostrarProductos)
 
@@ -44,7 +49,7 @@ function mostrarProductos() {
 
 //Agregar al carro
 $(document).on('click','button[type="button"]', function() {
-    let id = parseInt(this.id[this.id.length - 1]) ;
+    let id = parseInt(this.id.replace(/[^0-9]+/g, "")) ;
     let producto = catalogo.find(producto => producto.codigo == id)
     carrito.añadirProducto(producto)
     mostrarCarrito()
@@ -52,6 +57,7 @@ $(document).on('click','button[type="button"]', function() {
 
 //Mostrar productos en carro
 function mostrarCarrito(){
+    eliminarInfoPrevia();
     carrito.productos.forEach(producto => {
         const productoTabla = document.createElement('tr')
         productoTabla.innerHTML =
@@ -63,10 +69,33 @@ function mostrarCarrito(){
         <td>${producto.cantidad}</td>
         <td>$${producto.precio}</td>
         <td>
-            <button onclick="eliminarProducto(${producto.id})">X</button>
+            <button id"eliminacionItem">X</button>
         </td>
         `
         contenidoTabla.appendChild(productoTabla)
     })
+    carrito.calcularTotales()
+    
+    $("#totalIva").text(`${formatoPeso.format(carrito.iva)}`);
+    $("#totalBruto").text(`${formatoPeso.format(carrito.bruto)}`);
+    $("#totalFinal").text(`${formatoPeso.format(carrito.total)}`);
+    $("#totalNeto").text(`${formatoPeso.format(carrito.neto)}`)
+    $("#precioEnvio").text(`${formatoPeso.format(carrito.envio)}`)
 }
 
+function eliminarInfoPrevia() {
+    while(contenidoTabla.firstChild) {
+        contenidoTabla.removeChild(contenidoTabla.firstChild)
+    }
+    $("#totalIva").text(`$${0}`);
+    $("#totalBruto").text(`$${0}`);
+    $("#totalFinal").text(`$${0}`);
+    $("#totalNeto").text(`$${0}`)
+    $("#precioEnvio").text(`$${0}`)
+}
+
+//Boton vaciar carro
+$("#vaciar-carrito").on("click" ,function(){
+    carrito.eliminarCarro();
+    eliminarInfoPrevia()
+})
