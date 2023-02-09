@@ -155,7 +155,19 @@ fetch(url) //Ingreso como parametro de la url a la funcion fetch
         eliminarInfoPrevia()
     })
 
-    //Input range
+    //Filtros
+
+
+    //Busqueda por palabra
+    $("#buttonBuscar").on("click",function(){
+        let busqueda = $("#inputBusqueda").val();
+    
+        console.log(catalogo.filter(elemento => elemento.categoria == busqueda))
+    })
+
+
+
+
     $("#rango").on("change",function(){
         $("#divRango").text(`$0 hasta $${$("#rango").val()}`)
     })
@@ -163,7 +175,9 @@ fetch(url) //Ingreso como parametro de la url a la funcion fetch
     
 }) //Aquí termina el then donde se ejecuta todo el código que controla el funcionamiento de la página
 .catch(err => console.log(err)) //la función catch se ejecuta en caso de encontrar un error, en este caso muestra por consola el error, pero podría ejecutar cualquier cosa que queramos
-    
+   
+
+
 
 
 
