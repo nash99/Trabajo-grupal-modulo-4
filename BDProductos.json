@@ -17,7 +17,7 @@
                     ]
     },
     {
-        "categoria": "notebook",
+        "categoria": "smartwatch",
         "productos":[
                         {"imagen": "https://picsum.photos/id/111/300/200", "nombre": "Producto 8", "codigo": 8324123412341324, "descripcion": "Lorem ipsum, dolor sit amet consectetur adipisicing elit.", "precio": 76000, "cantidad": 0, "stock": 4},
                         {"imagen": "https://picsum.photos/id/146/300/200", "nombre": "Producto 9", "codigo": 912341324123413, "descripcion": "Lorem ipsum, dolor sit amet consectetur adipisicing elit.", "precio": 58000, "cantidad": 0, "stock": 5},
