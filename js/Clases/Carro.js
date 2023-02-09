@@ -47,11 +47,12 @@ class Carro{
     }
 
     añadirProducto = (productoNuevo) =>{
+   
         if(carrito.productos.find(producto => producto.codigo == productoNuevo.codigo)){
             let prod = carrito.productos.find(producto => producto.codigo == productoNuevo.codigo)
             prod.cantidad += 1;
             prod.precio *= prod.cantidad;
-            carrito.productos.indexOf(prod)
+            
         }else{
             productoNuevo.cantidad += 1
             this.productos.push(productoNuevo)
