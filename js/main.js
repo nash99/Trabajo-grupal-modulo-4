@@ -18,17 +18,18 @@ var catalogo = [];
 
 
 //Llamada a JSON
-fetch('/BDProductos.json')
-.then(response => response.json())
-.then(data => {
+const url = '/BDProductos.json';
+
+fetch(url) //Ingreso como parametro de la url a la funcion fetch
+.then(response => response.json()) //La response se transforma en un json, la funcion then se ejecuta luego de resolverse la promesa anterior, en este caso fetch
+.then(data => {  //Nuevamente una funcion then que se ejecuta luego de resuelto el then anterior, dentro de este then va todo el código que maneja el funcionamiento de la página
     
-    data.forEach(categoria => {
+    data.forEach(categoria => { //ingreso de los productos a al arreglo catalogo, el cual se usa mas adelante para mostrar las cards entre otros usos
         categoria.productos.forEach(producto => {
             catalogo.push(producto)
         })
         
     })
-    
     //Formateo de numero a moneda
     const formatoPeso = new Intl.NumberFormat('es-CL', {
         style: 'currency',
@@ -38,7 +39,6 @@ fetch('/BDProductos.json')
 
 
     mostrarProductos()
-    console.log(catalogo)
     /**
      * Muestra en el DOM todos los productos del arreglo
      */
@@ -161,8 +161,8 @@ fetch('/BDProductos.json')
     })
 
     
-})
-.catch(err => console.log(err))
+}) //Aquí termina el then donde se ejecuta todo el código que controla el funcionamiento de la página
+.catch(err => console.log(err)) //la función catch se ejecuta en caso de encontrar un error, en este caso muestra por consola el error, pero podría ejecutar cualquier cosa que queramos
     
 
 
