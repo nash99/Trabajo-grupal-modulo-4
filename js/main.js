@@ -6,7 +6,7 @@ const totales = document.querySelector("#contenedor-totales");
 var cantPdto = Number(document.querySelector("#cantX"));
 let catalogo = [];
 let canasta = [];
-let carro = new Carro()
+
 
 // Fetch json
 let url = "./Clase.js/catalogo.json";
@@ -59,6 +59,7 @@ modificarCantidad = (btn, codigo) => {
 };
 
 // 3) agregar productos al carrito
+let carro = new Carro()
 
 
 })
