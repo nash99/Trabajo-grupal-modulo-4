@@ -3,8 +3,10 @@
 const pdtosCanasta = document.querySelector("#tabla");
 const cardPdtos = document.querySelector(".cards");
 const totales = document.querySelector("#contenedor-totales");
+var cantPdto = Number(document.querySelector("#cantX"));
 let catalogo = [];
 let canasta = [];
+let carro = new Carro()
 
 // Fetch json
 let url = "./Clase.js/catalogo.json";
@@ -20,7 +22,7 @@ fetch(url)
     mostrarProductos();
     // 1) mostrar cards con productos
     function mostrarProductos() {
-    
+       
         catalogo.forEach(producto => { 
             let card = document.createElement("div");
             card.classList.add('card', 'p-2');
@@ -44,6 +46,19 @@ fetch(url)
     };
 
 // 2) modificar cantidad de productos en la card
+modificarCantidad = (btn, codigo) => {
+    cantPdto +=  btn
+        
+    if (cantPdto > 0) {
+
+    document.querySelector(`#cantX_${codigo}`).textContent = cantPdto
+        
+    } else {
+        cantPdto = 1;            
+    }
+};
+
+// 3) agregar productos al carrito
 
 
 })
@@ -55,7 +70,7 @@ fetch(url)
 
 
 
-// 3) agregar productos al carrito
+
 // 4) agregar cantidad de productos en carrito
 // 5) calcular montos en carrito
 // 6) eliminar productos en carrito
