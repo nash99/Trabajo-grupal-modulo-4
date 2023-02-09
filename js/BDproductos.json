@@ -1,0 +1,46 @@
+
+[   {"categoria": "zapateria",
+    "productos":[
+    {"imagen": "https://picsum.photos/id/21/300/200" ,
+    "nombre": "Zapatos",
+    "codigo": 1234,
+    "descripcion" : "Lorem ipsum" ,
+    "precio": 32990,
+    "cantidad": 0,
+    "stock": 0}]},
+
+    {"categoria": "Menaje",
+    "productos":[
+    {"imagen": "https://picsum.photos/id/23/300/200",
+    "nombre": "Tenedores", "codigo": 12345,
+    "descripcion" : "Lorem ipsum",
+    "precio": 3450,
+    "cantidad":0,
+    "stock": 10},
+
+    {"imagen": "https://picsum.photos/id/30/300/200",
+    "nombre": "Taza", "codigo": 1234567,
+    "descripcion": "Lorem ipsum",
+    "precio": 2990,
+    "cantidad":0,
+    "stock": 6}]},
+
+    {"categoria": "Libreria",
+    "productos":[ 
+    {"imagen": "https://picsum.photos/id/24/300/200",
+    "nombre": "Libro",
+    "codigo": 123456,
+    "descripcion" : "Lorem ipsum",
+    "precio": 10990,
+    "cantidad":0,
+    "stock": 20
+        }]}
+    
+]
+
+    
+   
+   
+   
+
+
