@@ -21,7 +21,7 @@ fetch(url)
 
     mostrarProductos();
     // 1) mostrar cards con productos
-    function mostrarProductos() {
+    mostrarProductos = () => {
        
         catalogo.forEach(producto => { 
             let card = document.createElement("div");
