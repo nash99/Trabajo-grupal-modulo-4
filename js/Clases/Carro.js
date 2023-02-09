@@ -62,6 +62,9 @@ class Carro{
     }
 
     eliminarCarro = () =>{
+        this.productos.forEach(element =>{
+            element.cantidad = 0
+        })
         this.productos =[]
         this.total = 0;
         this.iva = 0;
@@ -71,8 +74,9 @@ class Carro{
     }
 
     eliminarItem = (prod) =>{
-        let producto = catalogo.find(producto => producto.codigo == id)
-        console.log(this.productos.indexOf(producto))
+        let indice = this.productos.indexOf(prod)
+        
+        this.productos.splice(indice,1)
     }
     
    

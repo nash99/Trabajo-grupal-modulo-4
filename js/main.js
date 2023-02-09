@@ -97,13 +97,15 @@ fetch(url) //Ingreso como parametro de la url a la funcion fetch
         if(this.classList.contains("agregarProducto")){ //Este if evalua si el boton contiene la clase "agregarProducto", así se diferencia de otros botones en la página
             let id = parseInt(this.id.replace(/[^0-9]+/g, "")); //Obtiene el id del boton clickeado
             let producto = catalogo.find(productoo => productoo.codigo == id) //Busca el producto por el id(Declarado antes como el codigo del producto)
-            carrito.añadirProducto(producto) 
+            let productoNuevo = new Producto(producto.imagen,producto.nombre,producto.codigo,producto.descripcion,producto.precio,producto.stock,producto.cantidad)
+            carrito.añadirProducto(productoNuevo) 
             mostrarCarrito()
         }else{
-            let  id =  this.id; //Obtiene el id del boton clickeado
-            let producto = catalogo.find(productoo => productoo.codigo == id); //Busca el producto en el arreglo catalogo
-            let index = carrito.productos.indexOf(producto); //Obtiene el indice del producto en el carro
-            carrito.productos.splice(index,1); //Elimina el producto del carro
+            let  id =  parseInt(this.id); //Obtiene el id del boton clickeado
+            let producto = carrito.productos.find(productoo => productoo.codigo == id); //Busca el producto en el arreglo catalogo
+            //let index = carrito.productos.indexOf(producto); //Obtiene el indice del producto en el carro
+            producto.cantidad = 0
+            carrito.eliminarItem(producto) //Elimina el producto del carro
             mostrarCarrito();
         }
         
@@ -155,8 +157,8 @@ fetch(url) //Ingreso como parametro de la url a la funcion fetch
         eliminarInfoPrevia()
     })
 
-    //Filtros
 
+    //Filtros
 
     //Busqueda por palabra
     $("#buttonBuscar").on("click",function(){
