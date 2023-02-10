@@ -15,7 +15,7 @@ const botones = document.querySelector('.botones')
 let carrito = new Carro();
 
 var catalogo = [];
-
+var arreglo= []
 
 //Llamada a JSON
 const url = '/BDProductos.json';
@@ -28,6 +28,7 @@ fetch(url) //Ingreso como parametro de la url a la funcion fetch
         categoria.productos.forEach(producto => {
             catalogo.push(producto)
         })
+        arreglo.push(categoria)
         
     })
     //Formateo de numero a moneda
@@ -38,11 +39,11 @@ fetch(url) //Ingreso como parametro de la url a la funcion fetch
     })
 
 
-    mostrarProductos()
+    mostrarProductos(catalogo)
     /**
      * Muestra en el DOM todos los productos del arreglo
      */
-    function mostrarProductos() {
+    function mostrarProductos(catalogo) {
         let i = 1
         catalogo.forEach(producto => { 
             if(producto.stock > 0){
@@ -98,9 +99,9 @@ fetch(url) //Ingreso como parametro de la url a la funcion fetch
             let id = parseInt(this.id.replace(/[^0-9]+/g, "")); //Obtiene el id del boton clickeado
             let producto = catalogo.find(productoo => productoo.codigo == id) //Busca el producto por el id(Declarado antes como el codigo del producto)
             let productoNuevo = new Producto(producto.imagen,producto.nombre,producto.codigo,producto.descripcion,producto.precio,producto.stock,producto.cantidad)
-            carrito.añadirProducto(productoNuevo) 
-            mostrarCarrito()
-        }else{
+            carrito.añadirProducto(productoNuevo); 
+            mostrarCarrito();
+        }else if(this.classList.contains("botonEliminar")){
             let  id =  parseInt(this.id); //Obtiene el id del boton clickeado
             let producto = carrito.productos.find(productoo => productoo.codigo == id); //Busca el producto en el arreglo catalogo
             //let index = carrito.productos.indexOf(producto); //Obtiene el indice del producto en el carro
@@ -159,13 +160,59 @@ fetch(url) //Ingreso como parametro de la url a la funcion fetch
 
 
     //Filtros
+    function mostrarBusqueda(parametro){  
+        let categoria = arreglo.filter(categoria => categoria.categoria == parametro)
+        if(categoria.length > 0){
+            cards.innerHTML = ""
+            mostrarProductos(categoria[0].productos)
+            
+        }else{
+            cards.innerHTML = "<h1>SIN RESULTADOS<h1>"
+        }
+    }
 
     //Busqueda por palabra
     $("#buttonBuscar").on("click",function(){
-        let busqueda = $("#inputBusqueda").val();
-    
-        console.log(catalogo.filter(elemento => elemento.categoria == busqueda))
+        if($("#inputBusqueda").val()){
+            let busqueda = $("#inputBusqueda").val();
+            mostrarBusqueda(busqueda)
+        }
     })
+
+    $("#inputBusqueda").on("keyup",function(tecla){
+        if (tecla.code === "Enter") {
+            let busqueda = $("#inputBusqueda").val();
+            mostrarBusqueda(busqueda)
+        }
+        if(!$("#inputBusqueda").val()){
+            cards.innerHTML = ""
+            mostrarProductos(catalogo)
+        }
+    })
+
+    //Busqueda por categoria (select)
+
+    //Ingreso de opciones a select de categoria
+    arreglo.forEach(element =>{
+        let option = document.createElement("option");
+        option.text = element.categoria;
+        option.id = element.categoria
+        $("#selectCategorias").append(option)
+    })
+
+    $("#selectCategorias").on("change",function(){
+        if($("#selectCategorias").val() != "Buscar Categoría"){
+            let valueSelect = $("#selectCategorias").val();
+            mostrarBusqueda(valueSelect);
+        }else  if($("#selectCategorias").val() == "Buscar Categoría"){
+            cards.innerHTML = "";
+            mostrarProductos(catalogo)
+        }
+        
+    })
+
+    
+
 
 
 

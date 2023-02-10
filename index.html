@@ -21,25 +21,25 @@
         </div>
     </div>
     <div class="fondo"></div>
-    <div class="w-50 "> 
-        <div class="input-group mb-3">
-            <input id="inputBusqueda" type="search" class="form-control" aria-describedby="buttonbuscar"> 
-            <button class="btn btn-outline bg-primary active" type="button" id="buttonBuscar">Buscar</button>
-        </div>
-        <div class="form-floating">
-            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-              <option selected >-</option>
-              
-            </select>
-            <label for="floatingSelect">Categorias</label>
-        </div>
-        <div class="form-control">
-            <label for="rango" class="form-label">Rango de precios</label>
-            <div id="divRango">$0 hasta $1000000</div>
-            <input type="range" class="form-range" min="0" max="2000000" step="200000" id="rango">
-        </div>
-        </div>
+    
     <main class="container">
+        <div class="w-50 "> 
+            <div class="input-group mb-3">
+                <input id="inputBusqueda" type="search" class="form-control" aria-describedby="buttonbuscar"> 
+                <button class="btn btn-outline bg-primary active" type="button" id="buttonBuscar">Buscar</button>
+            </div>
+            <div>
+                <select class="form-select" id="selectCategorias" aria-label="Floating label select example">
+                  <option selected >Buscar Categoría</option>
+                </select>
+                
+            </div>
+            <div class="form-control">
+                <label for="rango" class="form-label">Rango de precios</label>
+                <div id="divRango">$0 hasta $1000000</div>
+                <input type="range" class="form-range" min="0" max="2000000" step="200000" id="rango">
+            </div>
+        </div>
         <div class="cards"></div>
     </main>
     <footer class="footer">
