@@ -3,21 +3,24 @@ const dir = '/BDProductos.json'
 fetch(dir) 
 .then(response => response.json()) 
 .then(data => { 
-    data.push("kjkajs")
     
     $("#listado").on("click", () =>{
         data.forEach(categoria => {
-            categoria.forEach(productos => {
-                console.log(productos)
+            categoria.productos.forEach(productos => {
+                let fila = document.createElement("tr")
+                fila.innerHTML = `   <th scope="row">
+                                        <td>${productos.nombre}</td>
+                                        <td>${productos.codigo}</td>
+                                        <td>${productos.descripcion}</td>
+                                        <td>${productos.precio}</td>
+                                        <td>${categoria.categoria}</td>
+                                        <td>${productos.stock}</td>  
+                                    </th>  `
+                $("#cuerpoTabla").append(fila)  
+               
             })
         });
-        let fila = document.createElement("tr")
-        fila.innerHTML = `   <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>   `
-        $("#cuerpoTabla").append(fila)                
+                      
     })
 })
 
