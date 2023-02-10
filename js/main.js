@@ -4,6 +4,7 @@ const pdtosCanasta = document.querySelector("#tabla");
 const cardPdtos = document.querySelector(".cards");
 const totales = document.querySelector("#contenedor-totales");
 var cantPdto = Number(document.querySelector("#cantX"));
+var carro = new Carro();
 let catalogo = [];
 let canasta = [];
 
@@ -59,7 +60,10 @@ modificarCantidad = (btn, codigo) => {
 };
 
 // 3) agregar productos al carrito
-let carro = new Carro()
+let nuevoProducto = new Producto(nombre, imagen, codigo, descripcion, precios, cantidad, stock);
+carro.añadirProducto(nuevoProducto)
+
+
 
 
 })
