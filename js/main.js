@@ -172,14 +172,14 @@ fetch(url) //Ingreso como parametro de la url a la funcion fetch
     }
 
     //Busqueda por palabra
-    $("#buttonBuscar").on("click",function(){
+    $("#buttonBuscar").on("click",function(){ //Con boton buscar
         if($("#inputBusqueda").val()){
             let busqueda = $("#inputBusqueda").val();
             mostrarBusqueda(busqueda)
         }
     })
 
-    $("#inputBusqueda").on("keyup",function(tecla){
+    $("#inputBusqueda").on("keyup",function(tecla){//Al presionar enter
         if (tecla.code === "Enter") {
             let busqueda = $("#inputBusqueda").val();
             mostrarBusqueda(busqueda)
@@ -200,7 +200,8 @@ fetch(url) //Ingreso como parametro de la url a la funcion fetch
         $("#selectCategorias").append(option)
     })
 
-    $("#selectCategorias").on("change",function(){
+    //Evento al cambiar el valor del select
+    $("#selectCategorias").on("change",() =>{
         if($("#selectCategorias").val() != "Buscar Categoría"){
             let valueSelect = $("#selectCategorias").val();
             mostrarBusqueda(valueSelect);
@@ -212,8 +213,21 @@ fetch(url) //Ingreso como parametro de la url a la funcion fetch
     })
 
     
-
-
+    //Busqueda por rango de precio
+    $("#rango").on("change", () =>{
+        let rangoPrecio = $("#rango").val();
+        let arr = []
+        arreglo.forEach(categoria =>{
+            categoria.productos.forEach(producto =>{
+                if(producto.precio < rangoPrecio){
+                    arr.push(producto)
+                }
+            })
+        })
+        cards.innerHTML = ""
+        mostrarProductos(arr)
+        
+    })
 
 
 
