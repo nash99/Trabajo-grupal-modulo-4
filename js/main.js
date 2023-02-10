@@ -181,8 +181,26 @@ fetch(url) //Ingreso como parametro de la url a la funcion fetch
 
     $("#inputBusqueda").on("keyup",function(tecla){//Al presionar enter
         if (tecla.code === "Enter") {
+            let prodEncontrado = [];
             let busqueda = $("#inputBusqueda").val();
-            mostrarBusqueda(busqueda)
+            arreglo.forEach(categoria =>{
+                categoria.productos.forEach(producto =>{
+                    if( producto.nombre.toUpperCase() == busqueda.toUpperCase()){
+                        prodEncontrado.push(producto)
+                        
+                    }
+                   
+                    
+                })
+            })
+            if(prodEncontrado.length > 0){
+                cards.innerHTML = ""
+                mostrarProductos(prodEncontrado)
+            }else{
+                cards.innerHTML = "<h1>SIN RESULTADOS<h1>"
+            }
+            
+            
         }
         if(!$("#inputBusqueda").val()){
             cards.innerHTML = ""
