@@ -15,26 +15,27 @@
             <nav class="nav">
                 <a class="nav-link" href="index.html">Inicio</a>
                 <a class="nav-link" href="#">Nosotros</a>
-                <a class="nav-link" href="#">Productos</a>
+                <a class="nav-link" href="/admin.html">Administrador</a>
                 <a class="carrito" data-bs-toggle="offcanvas" href="#carrito" role="button" aria-controls="offcanvasExample"><img style="width: 50px;" src="/img/carrito.png"></a>
             </nav>
         </div>
     </div>
     <div class="fondo"></div>
-    
+   
     <main class="container">
-        <div class="w-50 "> 
-            <div class="input-group mb-3">
-                <input id="inputBusqueda" type="search" class="form-control" aria-describedby="buttonbuscar"> 
+        
+        <div class="w-80"> 
+            <div class="input-group mb-3 ">
+                <input id="inputBusqueda" type="search" class="form-control" aria-describedby="buttonbuscar" placeholder="¿Qué producto buscas?"> 
                 <button class="btn btn-outline bg-primary active" type="button" id="buttonBuscar">Buscar</button>
             </div>
-            <div>
+            <div class="mb-3">
                 <select class="form-select" id="selectCategorias" aria-label="Floating label select example">
                   <option selected >Buscar Categoría</option>
                 </select>
                 
             </div>
-            <div class="form-control">
+            <div class="form-control mb-3">
                 <label for="rango" class="form-label">Rango de precios</label>
                 <div id="divRango">$0 hasta $1000000</div>
                 <input type="range" class="form-range" min="200000" max="2000000" step="200000" id="rango">

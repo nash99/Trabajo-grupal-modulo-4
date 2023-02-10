@@ -23,8 +23,6 @@ class Carro{
     set envio(_envio){this.envio = _envio};
     set total(_total){this.total = _total};
     set iva(_iva){ this.iva = _iva}
-    //Constructor
-    
     
     //Custom
     calcularTotales = () =>{

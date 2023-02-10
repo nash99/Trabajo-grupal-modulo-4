@@ -13,7 +13,7 @@ const totalTotal = document.querySelector('#totalTotal')
 const contenedorTotales = document.querySelector('#contenedor-totales')
 const botones = document.querySelector('.botones')
 let carrito = new Carro();
-
+console.log( carrito)
 var catalogo = [];
 var arreglo= []
 
@@ -101,6 +101,7 @@ fetch(url) //Ingreso como parametro de la url a la funcion fetch
             let productoNuevo = new Producto(producto.imagen,producto.nombre,producto.codigo,producto.descripcion,producto.precio,producto.stock,producto.cantidad)
             carrito.añadirProducto(productoNuevo); 
             mostrarCarrito();
+            console.log(carrito)
         }else if(this.classList.contains("botonEliminar")){
             let  id =  parseInt(this.id); //Obtiene el id del boton clickeado
             let producto = carrito.productos.find(productoo => productoo.codigo == id); //Busca el producto en el arreglo catalogo
@@ -164,6 +165,7 @@ fetch(url) //Ingreso como parametro de la url a la funcion fetch
         let categoria = arreglo.filter(categoria => categoria.categoria == parametro)
         if(categoria.length > 0){
             cards.innerHTML = ""
+            
             mostrarProductos(categoria[0].productos)
             
         }else{
@@ -186,11 +188,8 @@ fetch(url) //Ingreso como parametro de la url a la funcion fetch
             arreglo.forEach(categoria =>{
                 categoria.productos.forEach(producto =>{
                     if( producto.nombre.toUpperCase() == busqueda.toUpperCase()){
-                        prodEncontrado.push(producto)
-                        
+                        prodEncontrado.push(producto)    
                     }
-                   
-                    
                 })
             })
             if(prodEncontrado.length > 0){
