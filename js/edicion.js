@@ -32,4 +32,6 @@ $("form").on("submit", event =>{
     categoria.productos.push(productoActualizado)
     localStorage.removeItem("inventario")
     localStorage.setItem("inventario",JSON.stringify(inventario));
+    alert("Producto editado con éxito")
+    window.close()
 })
