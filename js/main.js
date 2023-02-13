@@ -12,17 +12,24 @@ const precioEnvio = document.querySelector('#precioEnvio')
 const totalTotal = document.querySelector('#totalTotal')
 const contenedorTotales = document.querySelector('#contenedor-totales')
 const botones = document.querySelector('.botones')
-let carrito = new Carro();
-console.log( carrito)
+var carrito = new Carro();
 var catalogo = [];
 var arreglo= []
-
+var inventario
 //Llamada a JSON
 const url = '/BDProductos.json';
 
 fetch(url) //Ingreso como parametro de la url a la funcion fetch
 .then(response => response.json()) //La response se transforma en un json, la funcion then se ejecuta luego de resolverse la promesa anterior, en este caso fetch
 .then(data => {  //Nuevamente una funcion then que se ejecuta luego de resuelto el then anterior, dentro de este then va todo el código que maneja el funcionamiento de la página
+    if(!localStorage.getItem("inventario")){
+        localStorage.setItem("inventario",JSON.stringify(data));
+        inventario = JSON.parse(localStorage.getItem("inventario"))
+    }else{
+        inventario = data
+        localStorage.setItem("inventario",JSON.stringify(data))
+        
+    }
     
     data.forEach(categoria => { //ingreso de los productos a al arreglo catalogo, el cual se usa mas adelante para mostrar las cards entre otros usos
         categoria.productos.forEach(producto => {
