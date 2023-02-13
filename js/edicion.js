@@ -27,9 +27,9 @@ $("form").on("submit", event =>{
     let categoria = inventario.find(categoria => categoria.categoria == productoEditado.categoria);
     let prodEnInventario = (categoria.productos.find(producto => producto.codigo == productoEditado.producto.codigo));
     let indice = categoria.productos.indexOf(prodEnInventario);
-    categoria.productos[indice].nombre = arregloDatos.nombre.value;
-    categoria.productos[indice].imagen = arregloDatos.imagen.value;
-    categoria.productos[indice].descripcion = arregloDatos.descripcion.value;
-    categoria.productos[indice].precio = arregloDatos.precio.value;
+    categoria.productos.splice(indice,1)
+    let productoActualizado = new Producto(arregloDatos.imagen.value,arregloDatos.nombre.value,arregloDatos.codigo.value,arregloDatos.descripcion.value,arregloDatos.precio.value,productoEditado.producto.stock,productoEditado.producto.cantidad)
+    categoria.productos.push(productoActualizado)
+    localStorage.removeItem("inventario")
     localStorage.setItem("inventario",JSON.stringify(inventario));
 })

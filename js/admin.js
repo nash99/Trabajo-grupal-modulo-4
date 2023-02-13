@@ -29,6 +29,7 @@ $(document).on("click",'button[type="button"]', function(){
     if(this.classList.contains("btnEditar")){
         let id = parseInt(this.id.replace(/[^0-9]+/g, "")); 
         productoEditado.producto = catalogo.find(productoo => productoo.codigo == id);
+        console.log(productoEditado)
         productoEditado.categoria = this.classList[3];
         localStorage.setItem("productoEditado",JSON.stringify(productoEditado));
         window.open("/edicion.html","_blank");
