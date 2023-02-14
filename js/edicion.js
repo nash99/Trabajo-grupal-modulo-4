@@ -17,7 +17,7 @@ inventario.forEach(categoria => {
 $("form").on("submit", event =>{
     event.preventDefault();
     let arregloDatos = document.getElementsByClassName("dato");
-    
+    console.log(arregloDatos)
     
     
     if(arregloDatos.categoria.value != ""){
@@ -34,4 +34,5 @@ $("form").on("submit", event =>{
     localStorage.setItem("inventario",JSON.stringify(inventario));
     alert("Producto editado con éxito")
     window.close()
+    
 })

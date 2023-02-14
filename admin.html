@@ -16,34 +16,70 @@
                 <a class="nav-link" href="index.html">Inicio</a>
                 <a class="nav-link" href="#">Nosotros</a>
                 <a class="nav-link" href="/admin.html">Administrador</a>
-                <a class="carrito" data-bs-toggle="offcanvas" href="#carrito" role="button" aria-controls="offcanvasExample"><img style="width: 50px;" src="/img/carrito.png"></a>
+               
             </nav>
         </div>
     </div>
-   
-    
+
     <main class="container">
         <div id="botones">
             <button id="listado" type="button" class="btn btn-primary ">Listado de productos</button>
+            <button id="crearProducto" type="button" class="btn btn-primary ">Crear Producto</button>
         </div>
-       <table id="tablaProductos" class="table table-dark  table-hover">
-        <thead>
-            <tr>
-              <th scope="col"></th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Código</th>
-              <th scope="col">Descripcion</th>
-              <th scope="col">Precio</th>
-              <th scope="col">Categoria</th>
-              <th scope="col">Stock</th>
-              <th scope="col">Editar</th>
-              <th scope="col">Eliminar</th>
-            </tr>
+        <table id="tablaProductos" class="table table-dark  table-hover">
+            <thead>
+                <tr>
+                <th scope="col"></th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Código</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Eliminar</th>
+                </tr>
           </thead>
           <tbody id="cuerpoTabla">
 
           </tbody>
        </table>
+
+        <form id="formCreacion" class="w-50 needs-validation" novalidate>
+            <div class="mb-3" id="selectCategoria">
+                <label for="categoriaCreacion" class="form-label">Seleccionar Categoría</label>
+                <select class="form-select datoProdNuevo" id="categoriaCreacion" required>
+                    <option value="" selected>Categoria</option>
+                </select>
+            </div> 
+            <div class="mb-3">
+                <label for="nombreCreacion" class="form-label">Nombre</label>
+                <input type="text" class="form-control datoProdNuevo" id="nombreCreacion" required>
+            </div>
+            <div class="mb-3">
+                <label for="imagenCreacion" class="form-label">URL Imagen</label>
+                <input type="text" class="form-control datoProdNuevo" id="imagenCreacion" required>         
+            </div>
+            <div class="mb-3">
+                <label for="codigoCreacion" class="form-label">Código</label>
+                <input type="text" class="form-control datoProdNuevo" id="codigoCreacion" required>           
+            </div>
+            <div class="mb-3">
+                <label for="descripcionCreacion" class="form-label ">Descripción</label>
+                <textarea name="descripcionCreacion"  class="form-control datoProdNuevo" id="descripcionCreacion" cols="30" rows="5" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="precioCreacion" class="form-label">Precio</label>
+                <input type="number" class="form-control datoProdNuevo" id="precioCreacion" required>
+            </div>
+            <div class="mb-3">
+                <label for="stockCreacion" class="form-label">Stock</label>
+                <input type="number" class="form-control datoProdNuevo" id="stockCreacion" required>
+            </div>
+            
+            <button type="submit" class="btn btn-danger mt-5">Crear Producto</button>
+        </form>  
+
     </main>
     <footer class="footer">
         <p class="container text">Todos los derechos reservados, 2023</p>
@@ -58,5 +94,25 @@
 <script src="/js/Clases/Producto.js"></script>
 <script src="/js/main.js"></script>
 <script src="/js/admin.js"></script>
+<script>(function () {
+    'use strict'
+  
+    // Obtener todos los formularios a los que queremos aplicar estilos de validación de Bootstrap personalizados
+    var forms = document.querySelectorAll('.needs-validation')
+  
+    // Bucle sobre ellos y evitar el envío
+    Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+  
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()</script>
+
 </html>
 

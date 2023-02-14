@@ -29,8 +29,6 @@ fetch(url) //Ingreso como parametro de la url a la funcion fetch
     
     }else{
         inventario = JSON.parse(localStorage.getItem("inventario"))
-        console.log(inventario)
-        localStorage.setItem("inventario",JSON.stringify(data))
         
     }
     
@@ -265,9 +263,3 @@ fetch(url) //Ingreso como parametro de la url a la funcion fetch
     
 }) //Aquí termina el then donde se ejecuta todo el código que controla el funcionamiento de la página
 .catch(err => console.log(err)) //la función catch se ejecuta en caso de encontrar un error, en este caso muestra por consola el error, pero podría ejecutar cualquier cosa que queramos
-   
-
-
-
-
-

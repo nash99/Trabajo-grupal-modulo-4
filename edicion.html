@@ -9,14 +9,14 @@
         <link rel="stylesheet" href="/css/style.css">
     </head>
     <body class=" justify-content-center">
-        <form id="formEdicion" class="w-50 ">
+        <form id="formEdicion" class="w-50 needs-validation" novalidate>
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control dato" id="nombre" >
+                <input type="text" class="form-control dato" id="nombre" required>
             </div>
             <div class="mb-3">
                 <label for="imagen" class="form-label">URL Imagen</label>
-                <input type="text" class="form-control dato" id="imagen" >         
+                <input type="text" class="form-control dato" id="imagen" required>         
             </div>
             <div class="mb-3">
                 <label for="codigo" class="form-label">Código</label>
@@ -24,11 +24,11 @@
             </div>
             <div class="mb-3">
                 <label for="descripcion" class="form-label ">Descripción</label>
-                <textarea name="descripcion"  class="form-control dato" id="descripcion" cols="30" rows="5"></textarea>
+                <textarea name="descripcion"  class="form-control dato" id="descripcion" cols="30" rows="5" required></textarea>
             </div>
             <div class="mb-3">
-                <label for="precio" class="form-label">Precio</label>
-                <input type="number" class="form-control dato" id="precio">
+                <label for="precio" class="form-label" >Precio</label>
+                <input type="number" class="form-control dato" id="precio" required>
             </div>
             <div class="mb-3" id="selectCategoria">
                 <label for="categoria" class="form-label">Cambiar categoría</label>
@@ -47,4 +47,24 @@
     <script src="/js/main.js"></script>
     <script src="/js/admin.js"></script>
     <script src="/js/edicion.js"></script>
+    <script>// Ejemplo de JavaScript inicial para deshabilitar el envío de formularios si hay campos no válidos
+        (function () {
+            'use strict'
+          
+            // Obtener todos los formularios a los que queremos aplicar estilos de validación de Bootstrap personalizados
+            var forms = document.querySelectorAll('.needs-validation')
+          
+            // Bucle sobre ellos y evitar el envío
+            Array.prototype.slice.call(forms)
+              .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                  if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                  }
+          
+                  form.classList.add('was-validated')
+                }, false)
+              })
+          })()</script>
 </html>
