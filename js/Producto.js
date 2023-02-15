@@ -48,5 +48,5 @@ class Producto{ // P:por qué no tiene constructores? estan al final jaja
     set stock(stock){this.stock = stock};
 
  
-
+    
 }
