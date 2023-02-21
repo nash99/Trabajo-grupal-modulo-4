@@ -1,93 +1,95 @@
-var edicionProducto = [];
-var productoEditado = {categoria:"",
-                       producto:""};
+import { Api } from "./API.js";
 
-$("#tablaProductos").hide();
-$("#formCreacion").hide();
+let api = new Api
 
-//Mostrar listado de productos
-function mostrarListado(inventario){
-    inventario.forEach(categoria => {
-        categoria.productos.forEach(productos => {           
-            let fila = document.createElement("tr")
-            fila.innerHTML = `  <th scope="row">
-                                    <td>${productos.nombre}</td>
-                                    <td>${productos.codigo}</td>
-                                    <td>${productos.descripcion}</td>
-                                    <td>${productos.precio}</td>
-                                    <td>${categoria.categoria}</td>
-                                    <td>${productos.stock}</td> 
-                                    <td><button type="button" class="btnEditar btn btn-success ${categoria.categoria}" id="edit-${productos.codigo}">Editar</button></td> 
-                                    <td><button type="button" class="btnEliminar btn btn-danger ${categoria.categoria}" id="delete-${productos.codigo}">Eliminar</button></td> 
-                                </th>  `
-            $("#cuerpoTabla").append(fila)     
-        })
-    }); 
-}
+let categoria = await api.obtenerCategoria();
+let productosDB = await api.traerProductos();
 
-$("#listado").on("click", () =>{
-    $("#cuerpoTabla").html("");
-    $("#formCreacion").hide();
-    $("#tablaProductos").show() 
-    mostrarListado(inventario)
-})
+let cuerpoTabla = document.getElementById("cuerpoTabla");
+
+
+
+//Listar Productos
+productosDB.forEach(producto => {
+    let fila = document.createElement("tr")
+    let categoriaProducto;
+        categoria.forEach(element => {
+            if(producto.idCategoria == element.id){
+                categoriaProducto = element.nombre
+            }
+        });
+    fila.innerHTML = `  <th scope="row">
+                            <td>${producto.nombre}</td>
+                            <td>${producto.descripcion}</td>
+                            <td>${producto.precio}</td>
+                            <td>${categoriaProducto}</td>
+                            <td>${producto.stock}</td> 
+                            <td><img src="${producto.link}" alt="Imagen No Disponible"  style="max-height: 50px; max-width: 50px"></td>
+                            <td>${producto.etiqueta}</td>
+                            <td><button type="button" class="btnEditar btn btn-success" value="${producto.id}">Editar</button></td> 
+                            <td><button type="button" class="btnEliminar btn btn-danger" value="${producto.id}">Eliminar</button></td>  
+                        </th>  `
+    cuerpoTabla.append(fila)  
+});
+
+
 
 //Editar Producto
-$(document).on("click",'button[type="button"]', function(){
-    if(this.classList.contains("btnEditar")){
-        let id = parseInt(this.id.replace(/[^0-9]+/g, "")); 
-        productoEditado.producto = catalogo.find(productoo => productoo.codigo == id);
-        productoEditado.categoria = this.classList[3];
-        localStorage.setItem("productoEditado",JSON.stringify(productoEditado));
-        window.open("/edicion.html","_blank");
-    }         
+let botonesEditar = document.querySelectorAll(".btnEditar");
+
+botonesEditar.forEach(boton =>{
+    boton.addEventListener("click",function(){
+        if(this.classList.contains("btnEditar")){
+            let id = this.value; 
+            localStorage.setItem("id",JSON.stringify(id))
+            window.open("/html/edicion.html","_blank");
+        }  
+    })
 })
 
+categoria.forEach(element => { 
+    if(element.id == 9 || element.id == 4 || element.id == 3 || element.id == 2){ 
+            document.getElementById("categoria").innerHTML += `<option value="${element.id}">${element.nombre}</option>`
+    }
+});
 //Crear producto
-$("#crearProducto").on("click",function(){
-    $("#tablaProductos").hide();
-    $("#formCreacion").show();
-    $("#categoriaCreacion").html('<option value="" selected>Categoria</option>')
-    inventario.forEach(categoria => {
-        let opciones = document.createElement("option");
-        opciones.setAttribute("value", categoria.categoria);
-        opciones.innerHTML = categoria.categoria;  
-        $("#categoriaCreacion").append(opciones);
-    });
-})
 
-$("#formCreacion").on("submit", event =>{
-    event.preventDefault();
-    let arrayProdNuevo = document.getElementsByClassName("datoProdNuevo");
-    let producto = new Producto(arrayProdNuevo.imagenCreacion.value,arrayProdNuevo.nombreCreacion.value,arrayProdNuevo.codigoCreacion.value,arrayProdNuevo.descripcionCreacion.value,arrayProdNuevo.precioCreacion.value,arrayProdNuevo.stockCreacion.value,0)
-    let category = inventario.find(categoria => categoria.categoria == arrayProdNuevo.categoriaCreacion.value)
-    category.productos.push(producto)
-    localStorage.removeItem("inventario")
-    localStorage.setItem("inventario",JSON.stringify(inventario));
-})
-
-//Eliminar Producto
-
-$(document).on("click",'button[type="button"]', function(){
-    if(this.classList.contains("btnEliminar")){
-        let id = parseInt(this.id.replace(/[^0-9]+/g, "")); 
-        productoEditado.producto = catalogo.find(productoo => productoo.codigo == id);
-        
-        
-        inventario.forEach(categoria =>{
-            let i = 0;
-            
-            categoria.productos.forEach(producto =>{
-                if(producto.codigo == productoEditado.producto.codigo){
-                    categoria.productos.splice(i,1)
+document.getElementById("formCreacion").addEventListener("submit",function(){
+    let nombre = document.getElementById("nombre").value;
+    let precio = document.getElementById("precio").value;
+    let link = document.getElementById("link").value;
+    let stock = document.getElementById("stock").value;
+    let etiqueta = document.getElementById("etiqueta").value;
+    let descripcion = document.getElementById("descripcion").value;
+    let categoria = document.getElementById("categoria").value;
+    let sucursal = document.getElementById("sucursal").value;
+    
+    let producto = {
+                    "id": 0,
+                    "nombre": nombre,
+                    "precio": precio,
+                    "link": link,
+                    "stock": stock,
+                    "etiqueta": etiqueta,
+                    "descripcion": descripcion,
+                    "idCategoria": categoria,
+                    "idSucursal": sucursal
                 }
-                i++
-            })
-            
-        })
-        localStorage.removeItem("inventario")
-        localStorage.setItem("inventario",JSON.stringify(inventario));
+    
+                api.crearProducto(producto)
+})
 
-        
-    }         
+//eliminar producto
+
+let botonesEliminar = document.querySelectorAll(".btnEliminar");
+
+botonesEliminar.forEach(boton =>{
+    boton.addEventListener("click",function(){
+        if(this.classList.contains("btnEliminar")){
+            let id = this.value; 
+            api.eliminarProducto(id)
+        }  
+        location.reload()
+    })
+    
 })

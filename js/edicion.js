@@ -1,38 +1,36 @@
-productoEditado = JSON.parse(localStorage.getItem("productoEditado"));
-inventario = JSON.parse(localStorage.getItem("inventario"));
+import { Api } from "./API.js";
+import{Producto} from "./Producto.js"
 
-$("#nombre").val(productoEditado.producto.nombre);
-$("#imagen").val(productoEditado.producto.imagen);
-$("#codigo").val(productoEditado.producto.codigo);
-$("#descripcion").val(productoEditado.producto.descripcion);
-$("#precio").val(productoEditado.producto.precio);
+let api = new Api()
+let categorias = await api.obtenerCategoria()
+let id =JSON.parse(localStorage.getItem("id")) 
+let producto = (await api.buscarProducto(id))[0];
+
+document.getElementById("nombreEdit").value = producto.nombre;
+document.getElementById("precioEdit").value = producto.precio;
+document.getElementById("linkEdit").value = producto.link;
+document.getElementById("stockEdit").value = producto.stock;
+document.getElementById("etiquetaEdit").value = producto.etiqueta;
+document.getElementById("descripcionEdit").value = producto.descripcion;
 
 
-inventario.forEach(categoria => {
-    let opciones = document.createElement("option");
-    opciones.innerHTML = categoria.categoria;  
-    $("#categoria").append(opciones);
-});
 
-$("form").on("submit", event =>{
-    event.preventDefault();
-    let arregloDatos = document.getElementsByClassName("dato");
-    console.log(arregloDatos)
-    
-    
-    if(arregloDatos.categoria.value != ""){
-        productoEditado.categoria = arregloDatos.categoria.value 
+document.getElementById("sucursalEdit").value = producto.idSucursal;
+categorias.forEach(element => { 
+    if(element.id == 9 || element.id == 4 || element.id == 3 || element.id == 2){ 
+        if(element.id == producto.idCategoria){
+            document.getElementById("categoriaSelected").value= producto.idCategoria
+            document.getElementById("categoriaSelected").innerHTML= element.nombre
+        }else{
+            document.getElementById("categoriaEdit").innerHTML += `<option value="${element.id}">${element.nombre}</option>`
+        }
     }
-    
-    let categoria = inventario.find(categoria => categoria.categoria == productoEditado.categoria);
-    let prodEnInventario = (categoria.productos.find(producto => producto.codigo == productoEditado.producto.codigo));
-    let indice = categoria.productos.indexOf(prodEnInventario);
-    categoria.productos.splice(indice,1)
-    let productoActualizado = new Producto(arregloDatos.imagen.value,arregloDatos.nombre.value,arregloDatos.codigo.value,arregloDatos.descripcion.value,arregloDatos.precio.value,productoEditado.producto.stock,productoEditado.producto.cantidad)
-    categoria.productos.push(productoActualizado)
-    localStorage.removeItem("inventario")
-    localStorage.setItem("inventario",JSON.stringify(inventario));
-    alert("Producto editado con éxito")
+});
+document.getElementById("formEdicion").addEventListener("submit",event =>{
+    event.preventDefault();
+    let arrProdEdit = document.getElementsByClassName("datoEdit");
+    let prod = new Producto(arrProdEdit.nombreEdit.value,parseInt(arrProdEdit.precioEdit.value),arrProdEdit.linkEdit.value,parseInt(arrProdEdit.stockEdit.value),arrProdEdit.etiquetaEdit.value,arrProdEdit.descripcionEdit.value,parseInt(arrProdEdit.categoriaEdit.value),parseInt(arrProdEdit.sucursalEdit.value))
+    prod.setID(parseInt(id))
+    api.editarProducto(prod)
     window.close()
-    
 })

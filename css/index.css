@@ -1,0 +1,59 @@
+/*Cards*/
+#containerCards{
+    display: grid;
+    grid-template-columns:  repeat(4,1fr);
+    gap: 10px;
+}
+
+.controles{
+    display: flex;
+}
+
+.ultimasUnidades{
+    background-color: rgb(192, 19, 19);
+    color: white;
+    text-align: center;
+}
+
+/*Carro*/
+.offcanvas {
+    --bs-offcanvas-width: 700px;
+}
+.offcanvas-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.contenido-carro{
+    width: 200px;
+    background-color: rgba(222, 243, 34, 0.815);
+}
+.contenido-total{
+    display: flex;
+    justify-content: end;
+    margin-right: 15px;
+    margin: 2px;
+}
+.contenido-total p {
+    padding: 0;
+    margin: 0;
+}
+
+.controlCantCarro{
+    display: flex;
+    align-items: center;
+}
+
+/*Nav*/
+
+#nav{
+    display: flex;
+    justify-content: space-between;
+}
+
+/*Finalizar compra*/
+
+#totalesFinalizar{
+    padding: 0;
+}
