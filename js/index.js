@@ -303,9 +303,16 @@ formContacto.addEventListener("submit",e =>{
                 IVA: ${iva}\n
                 Envio: ${envio}`
 
-    emailjs.send("service_yakjw2q","template_akmtu9l",{
+    if(emailjs.send("service_yakjw2q","template_akmtu9l",{
         nombre: nombreCliente,
         message: mensaje,
         email: emailCliente,
-        });
+        })){
+            carrito = [];
+            localStorage.removeItem("carro");
+            eliminarInfoPrevia()
+            alert("Correo Enviado");
+            location.reload()
+        }
+    
 })
